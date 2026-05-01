@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .field{display:flex;flex-direction:column;gap:6px;flex:1}
+  .field label{font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:0.04em;color:var(--taupe);text-transform:uppercase}
+  .input,.select,.textarea{font-family:var(--font-sans);font-size:14px;color:var(--espresso);background:#fff;border:1px solid var(--hairline);border-radius:4px;padding:10px 12px;outline:none;transition:border-color 200ms var(--ease-out)}
+  .input:focus,.textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,150,104,0.12)}
+  .input::placeholder{color:var(--taupe-soft)}
+</style></head><body>
+<div class="row" style="gap:12px">
+  <div class="field"><label>Full name</label><input class="input" placeholder="Naima Rahman"></div>
+  <div class="field"><label>WhatsApp</label><input class="input" value="+880 1711 234 567"></div>
+  <div class="field"><label>Service</label><select class="select"><option>Bridal makeup</option></select></div>
+</div>
+</body></html>

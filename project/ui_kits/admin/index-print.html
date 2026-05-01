@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TASFIN Admin — Print</title>
+<link rel="stylesheet" href="admin.css?v=2">
+<style>
+  @page { size: A3 landscape; margin: 1cm; }
+  html, body { background: white !important; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* one section per page */
+  .print-section { break-after: page; page-break-after: always; padding: 16px 0 0; }
+  .print-section:last-child { break-after: auto; page-break-after: auto; }
+  .print-section-title { font-family: var(--font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--hairline); display: flex; justify-content: space-between; align-items: baseline; }
+  .print-section-title .meta { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--taupe); font-weight: 600; }
+
+  /* render shell tighter for print: hide topbar, sidebar; the content wrapper expands */
+  .ad-shell { display: block; min-height: auto; }
+  .ad-sidebar, .ad-topbar { display: none; }
+  .ad-content { padding: 0; max-width: none; }
+
+  /* remove hover/transition noise */
+  .ad-cal-event:hover, .ad-card:hover, .ad-media-item:hover { transform: none !important; box-shadow: none !important; }
+
+  /* keep cards intact across pages */
+  .ad-card, .ad-cal-card { break-inside: avoid; page-break-inside: avoid; }
+
+  /* keep calendar grid pinned */
+  .ad-cal-grid, .ad-cal-day-view { break-inside: avoid; }
+
+  /* hide drawer if open */
+  .ad-cal-drawer-bg { display: none !important; }
+
+  /* cover */
+  .print-cover { padding: 80px 40px 40px; text-align: center; break-after: page; page-break-after: always; }
+  .print-cover img { height: 64px; margin: 0 auto 32px; display: block; }
+  .print-cover h1 { font-family: var(--font-display); font-size: 56px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 12px; }
+  .print-cover p { font-family: var(--font-serif); font-style: italic; font-size: 20px; color: var(--taupe); max-width: 540px; margin: 0 auto 40px; }
+  .print-cover-meta { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--taupe); font-weight: 600; }
+
+  /* tighten calendar event labels for print */
+  .ad-cal-event-name { font-size: 11px; }
+  .ad-cal-event-svc { font-size: 10px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../website/data.js"></script>
+<script type="text/babel" src="AdminPages.jsx"></script>
+<script type="text/babel" src="Calendar.jsx"></script>
+<script type="text/babel">
+const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const Section = ({ title, meta, children }) => (
+  <div className="print-section">
+    <div className="print-section-title"><span>{title}</span><span className="meta">{meta}</span></div>
+    {children}
+  </div>
+);
+
+const PrintApp = () => {
+  // No-op setPage so AdminShell renders without sidebar/topbar (hidden via CSS)
+  const noop = () => {};
+  return (
+    <>
+      <div className="print-cover">
+        <img src="../../assets/logo/tasfin-wordmark-black.png" alt="TASFIN"/>
+        <div className="print-cover-meta">Admin Panel · UI Kit Reference</div>
+        <h1>Salon Operations</h1>
+        <p>Calendar, dashboard, content editors, and media management for the TASFIN salon team.</p>
+        <div className="print-cover-meta">Printed {today}</div>
+      </div>
+
+      <Section title="Dashboard" meta="Overview · Recent bookings">
+        <AdminShell page="dashboard" setPage={noop} title="Dashboard">
+          <Dashboard/>
+        </AdminShell>
+      </Section>
+
+      <Section title="Calendar — Week view" meta="Bookings · Status legend">
+        <AdminShell page="calendar" setPage={noop} title="Calendar">
+          <Calendar/>
+        </AdminShell>
+      </Section>
+
+      <Section title="Frontpage content editor" meta="Hero · Intro">
+        <AdminShell page="frontpage" setPage={noop} title="Frontpage content">
+          <Frontpage/>
+        </AdminShell>
+      </Section>
+
+      <Section title="Services" meta="List + per-row controls">
+        <AdminShell page="services" setPage={noop} title="Services">
+          <ServicesEditor/>
+        </AdminShell>
+      </Section>
+
+      <Section title="Media library" meta="Images & reels">
+        <AdminShell page="media" setPage={noop} title="Media library">
+          <MediaLibrary/>
+        </AdminShell>
+      </Section>
+
+      <Section title="Reel settings" meta="Homepage video">
+        <AdminShell page="reel" setPage={noop} title="Reel settings">
+          <ReelSettings/>
+        </AdminShell>
+      </Section>
+
+      <Section title="Contact information" meta="Footer · About page">
+        <AdminShell page="contact" setPage={noop} title="Contact information">
+          <ContactInfo/>
+        </AdminShell>
+      </Section>
+
+      <Section title="Testimonials" meta="Homepage quotes">
+        <AdminShell page="testimonials" setPage={noop} title="Testimonials">
+          <TestimonialsEditor/>
+        </AdminShell>
+      </Section>
+    </>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('app')).render(<PrintApp/>);
+
+// Auto-print after fonts + scripts settle
+(async () => {
+  try { await document.fonts.ready; } catch(e) {}
+  await new Promise(r => setTimeout(r, 1200));
+  window.print();
+})();
+</script>
+</body>
+</html>
