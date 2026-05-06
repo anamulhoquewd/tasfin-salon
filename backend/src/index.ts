@@ -1,3 +1,4 @@
+// deprecated — backend logic has moved into frontend/app/api/ (Next.js route handlers)
 import 'dotenv/config';
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';

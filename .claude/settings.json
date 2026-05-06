@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem \"f:\\\\SOFTWARES\\\\New folder\\\\tasfin-salon\" -Depth 2)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(npm install *)",
+      "Bash(npx shadcn@latest init --yes)",
+      "Bash(npx shadcn@latest init)",
+      "Read(//c/Users/anamu/.npm/**)",
+      "Read(//root/**)",
+      "Bash(npx shadcn@latest init --defaults)",
+      "Bash(npx shadcn@latest add card input label select dialog tabs table badge separator switch toast dropdown-menu --yes)",
+      "Bash(npx shadcn@latest add card input label select dialog tabs table badge separator switch sonner dropdown-menu --yes)",
+      "Bash(npx shadcn@latest add form textarea sheet avatar skeleton --yes)",
+      "Bash(npx shadcn@latest add form --yes)"
+    ]
+  }
+}

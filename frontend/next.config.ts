@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['localhost'],
   },
+  serverExternalPackages: ['mongoose', 'bcryptjs'],
 };
 
 export default nextConfig;

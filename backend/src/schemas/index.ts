@@ -1,3 +1,4 @@
+// deprecated — replaced by frontend/app/api/ and frontend/models/
 import { z } from 'zod';
 
 export const loginSchema = z.object({

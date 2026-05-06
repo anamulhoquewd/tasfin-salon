@@ -1,8 +1,9 @@
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+// Server-side data fetching for RSC pages (uses internal API routes directly)
 
 async function fetchJSON(path: string) {
   try {
-    const res = await fetch(`${API}/api${path}`, { next: { revalidate: 60 } });
+    const base = process.env.NEXT_PUBLIC_DOMAIN || 'http://localhost:3000';
+    const res = await fetch(`${base}/api${path}`, { next: { revalidate: 60 } });
     if (!res.ok) return null;
     return res.json();
   } catch {
@@ -10,26 +11,9 @@ async function fetchJSON(path: string) {
   }
 }
 
-export async function getSettings() {
-  return fetchJSON('/settings');
-}
-
-export async function getServices() {
-  return fetchJSON('/services');
-}
-
-export async function getTestimonials() {
-  return fetchJSON('/testimonials');
-}
-
-export async function getPortfolio() {
-  return fetchJSON('/portfolio');
-}
-
-export async function getFaq() {
-  return fetchJSON('/faq');
-}
-
-export async function getReelSettings() {
-  return fetchJSON('/reel');
-}
+export async function getSettings() { return fetchJSON('/settings'); }
+export async function getServices() { return fetchJSON('/services'); }
+export async function getTestimonials() { return fetchJSON('/testimonials'); }
+export async function getPortfolio() { return fetchJSON('/portfolio'); }
+export async function getFaq() { return fetchJSON('/faq'); }
+export async function getReelSettings() { return fetchJSON('/reel'); }

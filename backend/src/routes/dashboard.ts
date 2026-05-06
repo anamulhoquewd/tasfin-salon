@@ -1,3 +1,4 @@
+// deprecated — replaced by frontend/app/api/ and frontend/models/
 import { Hono } from 'hono';
 import Booking from '../models/Booking.js';
 import { authMiddleware } from '../middleware/auth.js';

@@ -15,6 +15,8 @@ export default async function HomePage() {
     getSettings(), getServices(), getTestimonials(), getPortfolio(), getReelSettings(),
   ]);
 
+  console.log("Fetched reel settings:", reel);
+
   const s = settings || defaultSettings;
   const sv = services || defaultServices;
   const t = testimonials || defaultTestimonials;

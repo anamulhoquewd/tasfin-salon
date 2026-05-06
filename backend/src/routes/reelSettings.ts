@@ -1,3 +1,4 @@
+// deprecated — replaced by frontend/app/api/ and frontend/models/
 import { Hono } from 'hono';
 import ReelSettings from '../models/ReelSettings.js';
 import { reelSettingsSchema } from '../schemas/index.js';

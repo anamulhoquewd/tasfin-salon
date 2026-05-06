@@ -1,3 +1,4 @@
+// deprecated — replaced by frontend/app/api/ and frontend/models/
 import { Hono } from 'hono';
 import Testimonial from '../models/Testimonial.js';
 import { testimonialSchema } from '../schemas/index.js';

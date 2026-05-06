@@ -1,3 +1,4 @@
+// deprecated — replaced by frontend/app/api/ and frontend/models/
 import { Hono } from 'hono';
 import Faq from '../models/Faq.js';
 import { faqSchema } from '../schemas/index.js';

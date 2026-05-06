@@ -1,3 +1,4 @@
+// deprecated — replaced by frontend/app/api/ and frontend/models/
 import { Hono } from 'hono';
 import Portfolio from '../models/Portfolio.js';
 import { portfolioSchema } from '../schemas/index.js';

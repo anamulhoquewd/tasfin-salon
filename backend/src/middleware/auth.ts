@@ -1,3 +1,4 @@
+// deprecated — replaced by frontend/app/api/ and frontend/models/
 import { Context, Next } from 'hono';
 import jwt from 'jsonwebtoken';
 import type { UserRole } from '../models/User.js';

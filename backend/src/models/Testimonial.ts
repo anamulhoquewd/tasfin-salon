@@ -1,3 +1,4 @@
+// deprecated — replaced by frontend/app/api/ and frontend/models/
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface ITestimonial extends Document {

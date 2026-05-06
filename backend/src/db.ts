@@ -1,3 +1,4 @@
+// deprecated — replaced by frontend/app/api/ and frontend/models/
 import mongoose from 'mongoose';
 
 export async function connectDB() {

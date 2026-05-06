@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
-
 export const api = axios.create({
-  baseURL: `${API_URL}/api`,
+  baseURL: '/api',
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -21,6 +19,7 @@ api.interceptors.response.use(
     if (err.response?.status === 401 && typeof window !== 'undefined') {
       localStorage.removeItem('tasfin_token');
       localStorage.removeItem('tasfin_user');
+      document.cookie = 'tasfin_token=; path=/; SameSite=Lax; Max-Age=0';
       window.location.href = '/admin/login';
     }
     return Promise.reject(err);
@@ -28,14 +27,12 @@ api.interceptors.response.use(
 );
 
 export const authApi = {
-  login: (email: string, password: string) =>
-    api.post('/auth/login', { email, password }),
-  me: () => api.get('/auth/me'),
+  login: (email: string, password: string) => api.post('/auth', { email, password }),
+  me: () => api.get('/auth'),
 };
 
 export const bookingsApi = {
-  list: (params?: Record<string, string>) =>
-    api.get('/bookings', { params }),
+  list: (params?: Record<string, string>) => api.get('/bookings', { params }),
   get: (id: string) => api.get(`/bookings/${id}`),
   create: (data: Record<string, unknown>) => api.post('/bookings', data),
   update: (id: string, data: Record<string, unknown>) => api.put(`/bookings/${id}`, data),
